@@ -1,5 +1,17 @@
 {
   "language": "Nederlands",
+  "metadata": {
+    "title": "The Dijker",
+    "description": "De Dijker is een nieuw type voertuig dat tegelijkertijd heel vertrouwd aanvoelt.",
+    "keywords": {
+      "dijker": "dijker",
+      "vehicle": "voertuig",
+      "belt drive": "spiraal riemaandrijving",
+      "multispeed": "multispeed",
+      "high-tech": "high-tech",
+      "recumbent-bike": "ligfiets"
+    }
+  },
   "header": {
     "home": "Home",
     "about": "De Dijker",
@@ -8,8 +20,9 @@
     "invest": "Investeren",
     "contact": "Contact"
   },
-  "HomePage": {
-    "title": "Hallo wereld!",
-    "about": "Dit is een voorbeeld van een internationale website met meertalige ondersteuning."
+  "home": {
+    "title": "Welkom bij de Dijker",
+    "section1": "De dijker. Een nieuw type voertuig dat tegelijkertijd heel vertrouwd aanvoelt. Het ademt nostalgie.",
+    "section2": "Maar laat de klassieke lijnen je niet misleiden, de dijker is een high-tech voertuig met zijn unieke spiraal riemaandrijving multispeed®."
   }
 }

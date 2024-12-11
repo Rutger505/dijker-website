@@ -6,7 +6,11 @@ on:
       - main
   pull_request:
     branches:
-      - '*'
+      - "*"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 env:
   DOCKER_IMAGE: rutger505/dijker-website
@@ -18,6 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.config.outputs.tag }}
+
+    environment:
+      name: ${{ github.ref == 'refs/heads/main' && 'production' || format('pr-{0}', github.event.pull_request.number) }}
 
     steps:
       - name: Checkout repository
@@ -83,13 +90,13 @@ jobs:
             INGRESS_HOST=${{ github.sha }}.${{ vars.BASE_DOMAIN }}
             LETSENCRYPT_ENV="staging"
           fi
-          
+
           echo "Setting ingress host to $INGRESS_HOST"
           echo "ingress_host=$INGRESS_HOST" >> $GITHUB_OUTPUT
-          
+
           echo "Setting letsencrypt env to $LETSENCRYPT_ENV"
           echo "letsencrypt_env=$LETSENCRYPT_ENV" >> $GITHUB_OUTPUT
-          
+
           NAMESPACE=$APP_NAME-${{ matrix.environment }}
           echo "Setting namespace to $NAMESPACE"
           echo "namespace=$NAMESPACE" >> $GITHUB_OUTPUT
@@ -97,12 +104,12 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v3
         with:
-          version: 'v3.16.2'
+          version: "v3.16.2"
 
       - name: Set up kubectl
         uses: azure/setup-kubectl@v4
         with:
-          version: 'v1.31.0'
+          version: "v1.31.0"
 
       - name: Set up Kubernetes context
         uses: azure/k8s-set-context@v4
@@ -127,4 +134,5 @@ jobs:
             -f ./k8s/processed-values.yaml \
             --namespace ${{ steps.config.outputs.namespace }} \
             --create-namespace \
-            --wait
+            --wait \
+            --timeout 1m

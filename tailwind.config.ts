@@ -12,6 +12,7 @@ export default {
       current: "currentColor",
       black: "#000",
       white: "#fff",
+      gray: "#f2f2f2",
       primary: "#607428",
       text: {
         primary: "#000",
